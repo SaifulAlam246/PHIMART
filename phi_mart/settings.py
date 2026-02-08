@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
     'djoser',
     'rest_framework',
     'api',
@@ -36,6 +37,8 @@ INSTALLED_APPS = [
     'order',
 ]
 STATIC_URL = "static/"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
@@ -141,4 +144,15 @@ DJOSER = {
         'user_create': 'users.serializers.UserCreateSerializer', 
         'current_user' : 'users.serializers.UserSerializer',
     },
+}
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'Enter your JWT token in the format: `JWT <your_token>`'
+        }
+    }
 }

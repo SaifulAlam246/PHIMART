@@ -5,6 +5,9 @@ from product.serializers import ProductSerializer
 from order.models import Order,OrderItem
 from order.services import OrderService
 
+class CancelSerializer(serializers.Serializer):
+    pass
+
 class SimpleProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
@@ -71,7 +74,7 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = ['id', 'user', 'items', 'total_price']
-        read_only_fields = 'user'
+        read_only_fields = ['user']
     def get_total_price(self, cart: Cart):
         return sum(
             [item.product.price * item.quantity for item in cart.items.all()])
