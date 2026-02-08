@@ -13,10 +13,12 @@ from drf_yasg.utils import swagger_auto_schema
 
 class ProductViewSet(ModelViewSet):
     """Api Endpoint For managing products in the PhiMart"""
-    queryset=Product.objects.all()
     serializer_class=ProductSerializer
     permission_classes = [IsAdminOrReadOnly]
     # permission_classes = [DjangoModelPermissions]
+
+    def get_queryset(self):
+        return Product.objects.prefetch_related('images').all()
     @swagger_auto_schema(
         operation_summary = 'Retrive a list of products'  
     )
